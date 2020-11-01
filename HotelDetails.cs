@@ -9,13 +9,13 @@ namespace HotelReservationSystem
         //Name and Rate
 
         public string hotelName = "^[A-Z][a-z][0-9]?";
-        public int regularRate;
+        public int rate;
 
         /// Parametrised Constructor
-        public HotelDetails(string hotelName, int regularRate)
+        public HotelDetails(string hotelName, int rate)
         {
             this.hotelName = hotelName;
-            this.regularRate = regularRate;
+            this.rate = rate;
         }
     }
 }
