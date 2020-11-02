@@ -75,7 +75,7 @@ namespace HotelReservationSystem
 
 
                 ////Calculation of total bill:
-                double totalRate = dateRange * cheapestHotel.rate;
+                double totalRate = (weekDays * cheapestHotel.rate)+(weekEnds * cheapestHotel.weekendrate);
 
                 Console.WriteLine("Cheapest hotel in the date range" + cheapestHotel.hotelName);
                 Console.WriteLine("Total Rate of cheapest Hotel: " + totalRate);
