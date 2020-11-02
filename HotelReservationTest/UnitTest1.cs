@@ -12,9 +12,9 @@ namespace HotelReservationTest
         public void GivenDetailsforCountfornumberofhotels()
         {
             HotelReservation hotelReservation = new HotelReservation();
-            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110));
-            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 160));
-            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220));
+            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110 ,90));
+            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150,50));
+            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220,150));
 
             int expected = 3;
             int actual = hotelReservation.hotelDetails.Count();
@@ -30,9 +30,9 @@ namespace HotelReservationTest
             string end = "4 Nov 2020";
             DateTime endDate = DateTime.Parse(end);
             HotelReservation hotelReservation = new HotelReservation();
-            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110));
-            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 160));
-            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220));
+            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110, 90));
+            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150, 50));
+            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220, 150));
 
             ////Check cheapest available hotel
             HotelDetails cheapestHotel = hotelReservation.CheapestHotelandRateforDateRange(startDate, endDate);
