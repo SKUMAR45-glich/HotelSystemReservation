@@ -10,15 +10,15 @@ namespace HotelReservationSystem
 
         public string hotelName = "^[Aa0-Zz9]";
         public int rate;
-        public int weekendrate;
+        
         
 
         /// Parametrised Constructor
-        public HotelDetails(string hotelName, int rate, int weekendrate)
+        public HotelDetails(string hotelName, int rate)
         {
             this.hotelName = hotelName;
             this.rate = rate;
-            this.weekendrate = weekendrate;
+            
             
         }
     }

@@ -24,7 +24,7 @@ namespace HotelReservationSystem
             {
                 foreach (var hotel in this.hotelDetails)
                 {
-                    return $"Hotel Name: {hotel.hotelName}, RegularRate: {hotel.rate}, WeekendRate: {hotel.weekendrate}";
+                    return $"Hotel Name: {hotel.hotelName}, RegularRate: {hotel.rate}";
                 }
             }
             catch (CustomExceptions)
@@ -61,9 +61,7 @@ namespace HotelReservationSystem
             {
                 TimeSpan timeSpan = endDate.Subtract(startDate);
                 int dateRange = Convert.ToInt32(timeSpan.TotalDays);
-                int weekDays = CheckforWeekDays(startDate, endDate);
-                int weekEnds = dateRange - weekDays;
-
+               
 
                 foreach (HotelDetails hotels in hotelDetails)
                 {
@@ -75,7 +73,8 @@ namespace HotelReservationSystem
 
 
                 ////Calculation of total bill:
-                double totalRate = (weekDays * cheapestHotel.rate)+(weekEnds * cheapestHotel.weekendrate);
+               
+                double totalRate = dateRange * cheapestHotel.rate;
 
                 Console.WriteLine("Cheapest hotel in the date range" + cheapestHotel.hotelName);
                 Console.WriteLine("Total Rate of cheapest Hotel: " + totalRate);
@@ -83,20 +82,6 @@ namespace HotelReservationSystem
             }
         }
 
-        public int CheckforWeekDays(DateTime startDate, DateTime endDate)
-        {
-            int numberofDays = 0;
-            while (startDate <= endDate)
-            {
-                ////Checking start days is Weekend or not
-                if (startDate.DayOfWeek != DayOfWeek.Saturday && startDate.DayOfWeek != DayOfWeek.Sunday)
-                {
-                    numberofDays++;
-                }
-
-                startDate = startDate.AddDays(1);
-            }
-            return numberofDays;
-        }
+        
     }
 }
