@@ -24,7 +24,7 @@ namespace HotelReservationSystem
             {
                 foreach (var hotel in this.hotelDetails)
                 {
-                    return $"Hotel Name: {hotel.hotelName}, RegularRate: {hotel.rate}, WeekendRate: {hotel.weekendrate} and rating: {hotel.rating}";
+                    return $"Hotel Name: {hotel.hotelName}, RegularRate: {hotel.rate}, WeekendRate: {hotel.weekendrate}";
                 }
             }
             catch (CustomExceptions)
@@ -60,11 +60,10 @@ namespace HotelReservationSystem
             catch
             {
                 TimeSpan timeSpan = endDate.Subtract(startDate);
-                double dateRange = timeSpan.TotalDays;
-                
+                int dateRange = Convert.ToInt32(timeSpan.TotalDays);
+                int weekDays = CheckforWeekDays(startDate, endDate);
+                int weekEnds = dateRange - weekDays;
 
-                ////Calculation of total bill:
-                double totalRate = dateRange * cheapestHotel.rate;
 
                 foreach (HotelDetails hotels in hotelDetails)
                 {
@@ -73,10 +72,31 @@ namespace HotelReservationSystem
                         cheapestHotel = hotels;
                     }
                 }
+
+
+                ////Calculation of total bill:
+                double totalRate = dateRange * cheapestHotel.rate;
+
                 Console.WriteLine("Cheapest hotel in the date range" + cheapestHotel.hotelName);
                 Console.WriteLine("Total Rate of cheapest Hotel: " + totalRate);
                 return cheapestHotel;
             }
+        }
+
+        public int CheckforWeekDays(DateTime startDate, DateTime endDate)
+        {
+            int numberofDays = 0;
+            while (startDate <= endDate)
+            {
+                ////Checking start days is Weekend or not
+                if (startDate.DayOfWeek != DayOfWeek.Saturday && startDate.DayOfWeek != DayOfWeek.Sunday)
+                {
+                    numberofDays++;
+                }
+
+                startDate = startDate.AddDays(1);
+            }
+            return numberofDays;
         }
     }
 }
