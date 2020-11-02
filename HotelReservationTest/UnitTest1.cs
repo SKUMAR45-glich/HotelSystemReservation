@@ -36,9 +36,9 @@ namespace HotelReservationTest
 
             ////Check cheapest available hotel
             HotelDetails cheapestHotel = hotelReservation.CheapestHotelandRateforDateRange(startDate, endDate);
-
-            string expected = "Lakewood";
+            string expected = "Lakewood and Bridgewood";
             string actual = cheapestHotel.hotelName;
+
             ////Assert
             Assert.AreEqual(expected, actual);
         }

@@ -54,7 +54,7 @@ namespace HotelReservationSystem
                 {
                     throw new CustomExceptions(CustomExceptions.ExceptionType.INVALID_EndDate, "No vaccancies after 4th Nov");
                 }
-                return cheapestHotel; ;
+                return cheapestHotel; 
             }
             catch
             {
