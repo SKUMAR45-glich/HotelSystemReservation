@@ -24,7 +24,7 @@ namespace HotelReservationSystem
             {
                 foreach (var hotel in this.hotelDetails)
                 {
-                    return $"Hotel Name: {hotel.hotelName} and RegularRate: {hotel.rate} and WeekendRate: {hotel.weekendrate}";
+                    return $"Hotel Name: {hotel.hotelName}, RegularRate: {hotel.rate}, WeekendRate: {hotel.weekendrate} and rating: {hotel.rating}";
                 }
             }
             catch (CustomExceptions)

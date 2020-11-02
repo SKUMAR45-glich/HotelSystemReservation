@@ -12,9 +12,9 @@ namespace HotelReservationTest
         public void GivenDetailsforDisplayingDetailsofHotel()
         {
             HotelReservation hotelReservation = new HotelReservation();
-            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110 ,90));
-            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150,50));
-            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220,150));
+            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110 ,90,3));
+            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150,50,4));
+            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220,150,5));
 
             string expected = "Hotel Name: Lakewood and RegularRate: Bridgewood and WeekendRate: Ridgewood";
             string actual = hotelReservation.DisplayHotels();
@@ -30,9 +30,9 @@ namespace HotelReservationTest
             string end = "4 Nov 2020";
             DateTime endDate = DateTime.Parse(end);
             HotelReservation hotelReservation = new HotelReservation();
-            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110, 90));
-            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150, 50));
-            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220, 150));
+            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110, 90, 3));
+            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150, 50, 4));
+            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220, 150, 5));
 
             ////Check cheapest available hotel
             HotelDetails cheapestHotel = hotelReservation.CheapestHotelandRateforDateRange(startDate, endDate);
