@@ -17,21 +17,22 @@ namespace HotelReservationSystem
 
         /// Display the hotel names and their rates
 
-        public void DisplayHotels()
+        public string DisplayHotels()
         {
             Console.WriteLine("Welcome to the Hotels\n");
             try
             {
                 foreach (var hotel in this.hotelDetails)
                 {
-                    Console.WriteLine($"Hotel Name: {hotel.hotelName} and RegularRate: {hotel.rate} and WeekendRate: {hotel.weekendrate}");
+                    return $"Hotel Name: {hotel.hotelName} and RegularRate: {hotel.rate} and WeekendRate: {hotel.weekendrate}";
                 }
             }
             catch (CustomExceptions)
             {
                 throw new CustomExceptions(CustomExceptions.ExceptionType.INVALID_NAME, "Please Enter valid Name of Hotel");
+                
             }
-
+            return "Wrong Name";
         }
 
         //Find Hotels with cheapest rate

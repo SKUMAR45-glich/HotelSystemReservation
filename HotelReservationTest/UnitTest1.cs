@@ -9,15 +9,15 @@ namespace HotelReservationTest
     public class UnitTest1
     {
         [TestMethod]
-        public void GivenDetailsforCountfornumberofhotels()
+        public void GivenDetailsforDisplayingDetailsofHotel()
         {
             HotelReservation hotelReservation = new HotelReservation();
             hotelReservation.AddHotel(new HotelDetails("Lakewood", 110 ,90));
             hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150,50));
             hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220,150));
 
-            int expected = 3;
-            int actual = hotelReservation.hotelDetails.Count();
+            string expected = "Hotel Name: Lakewood and RegularRate: Bridgewood and WeekendRate: Ridgewood";
+            string actual = hotelReservation.DisplayHotels();
 
             Assert.AreEqual(expected, actual);
         }
