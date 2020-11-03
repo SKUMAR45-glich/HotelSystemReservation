@@ -72,5 +72,26 @@ namespace HotelReservationTest
             Assert.AreEqual(expectedbill, actualbill);
         }
 
+        //UC7 to get the best Rated Hotel 
+
+        [TestMethod]
+        public void GivenDetailsforBestRatedHotelinaDateRange()
+        {
+            var startDate = Convert.ToDateTime("11Sep2020");
+            var endDate = Convert.ToDateTime("12Sep2020");
+            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110, 90, 3));
+            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150, 50, 4));
+            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220, 150, 5));
+
+            ////Check best rated available hotel 
+            HotelDetails bestratedHotel = hotelReservation.CheapestHotelandRateforDateRange(startDate, endDate);
+            string expected = "Riddgewood";
+            string actual = bestratedHotel.hotelName;
+            Assert.AreEqual(expected, actual);
+
+            int expectedbill = 370;
+            int actualbill = hotelReservation.CalculateTotalBill(bestratedHotel, startDate, endDate);
+            Assert.AreEqual(expectedbill, actualbill);
+        }
     }
 }
