@@ -49,7 +49,7 @@ namespace HotelReservationTest
         //UC6 to check for cheapandbestratedHotel
 
         [TestMethod]
-        public void FindCheapestBestRatedHotels_WhenGivenValidDateRange_ReturnsCheapestHotelWithHighestRating()
+        public void GivenDetailsforCheapestBestRatedHotelinaDateRange()
         {
             var startDate = Convert.ToDateTime("11Sep2020");
             var endDate = Convert.ToDateTime("13Sep2020");
@@ -71,5 +71,6 @@ namespace HotelReservationTest
             int actualbill = hotelReservation.CalculateTotalBill(cheapestbestratedHotel, startDate, endDate);
             Assert.AreEqual(expectedbill, actualbill);
         }
+
     }
 }
