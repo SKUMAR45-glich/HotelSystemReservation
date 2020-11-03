@@ -8,11 +8,11 @@ namespace HotelReservationSystem
     {
         public List<HotelDetails> hotelDetails = new List<HotelDetails>();
 
-
         public void AddHotel(HotelDetails newHotelAdd)
         {
             this.hotelDetails.Add(newHotelAdd);
         }
+
 
 
         /// Display the hotel names and their rates
@@ -37,7 +37,7 @@ namespace HotelReservationSystem
 
         //Find Hotels with cheapest rate
 
-        DateTime startdate = new DateTime(2020, 1, 11);
+        DateTime startdate = new DateTime(2020, 1, 1);
         DateTime enddate = new DateTime(2020, 4, 11);
 
         public HotelDetails CheapestHotelandRateforDateRange(DateTime startDate, DateTime endDate)
@@ -55,35 +55,44 @@ namespace HotelReservationSystem
                 {
                     throw new CustomExceptions(CustomExceptions.ExceptionType.INVALID_EndDate, "No vaccancies after 4th Nov");
                 }
-                return cheapestHotel; 
+                return cheapestHotel;
             }
             catch
             {
-                TimeSpan timeSpan = endDate.Subtract(startDate);
-                int dateRange = Convert.ToInt32(timeSpan.TotalDays);
-                int weekDays = CheckforWeekDays(startDate, endDate);
-                int weekEnds = dateRange - weekDays;
-
+                
+                var price = Int32.MaxValue;
 
                 foreach (HotelDetails hotels in hotelDetails)
                 {
-                    if (hotels.rate < cheapestHotel.rate)
+                    price = Math.Min(price, CalculateTotalBill(hotels, startDate, endDate));
+                }
+
+                foreach (HotelDetails hotels in hotelDetails)
+                {
+                    if (CalculateTotalBill(hotels, startDate, endDate) == price)
                     {
                         cheapestHotel = hotels;
                     }
                 }
 
-
-                ////Calculation of total bill:
-
-                double totalRate = (weekDays * cheapestHotel.rate) + (weekEnds * cheapestHotel.weekendrate);
-
-                Console.WriteLine("Cheapest hotel in the date range" + cheapestHotel.hotelName);
-                Console.WriteLine("Total Rate of cheapest Hotel: " + totalRate);
                 return cheapestHotel;
+
             }
         }
 
+        //To Calculate Total Bill of a particular Hotel
+        public int CalculateTotalBill(HotelDetails hotelDetails,DateTime startDate,DateTime endDate)
+        {
+            TimeSpan timeSpan = endDate.Subtract(startDate);
+            int dateRange = Convert.ToInt32(timeSpan.TotalDays);
+            int weekDays = CheckforWeekDays(startDate, endDate);
+            int weekEnds = dateRange - weekDays;
+
+            int totalRate = (weekDays * hotelDetails.rate) + (weekEnds * hotelDetails.weekendrate);
+            return totalRate;
+        }
+
+        //Check for the weekdays and weekends
         public int CheckforWeekDays(DateTime startDate, DateTime endDate)
         {
             int numberofDays = 0;
@@ -99,5 +108,29 @@ namespace HotelReservationSystem
             }
             return numberofDays;
         }
+
+        //Get the Cheapest and Best Rated Hotel
+
+        public HotelDetails CheapestandBestRatedHotel(DateTime startDate, DateTime endDate)
+        {
+            var cheapestHotel = CheapestHotelandRateforDateRange(startDate, endDate);
+            int maxrating = Int32.MinValue;
+            HotelDetails cheapandbesthotel = hotelDetails[0];
+
+            foreach (HotelDetails hotels in hotelDetails)
+            {
+                maxrating = Math.Max(maxrating, hotels.rating);
+            }
+
+            foreach (HotelDetails hotels in hotelDetails)
+            {
+                if (maxrating == hotels.rating)
+                {
+                    cheapandbesthotel = hotels;
+                }
+            }
+            return cheapandbesthotel;
+        }
+
     }
 }

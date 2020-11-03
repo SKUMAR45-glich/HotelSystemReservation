@@ -8,31 +8,34 @@ namespace HotelReservationTest
     [TestClass]
     public class UnitTest1
     {
+        HotelReservation hotelReservation = new HotelReservation();
+
+        //UC5 To get the rating of the Hotel
+
         [TestMethod]
         public void GivenDetailsforDisplayingDetailsofHotel()
         {
-            HotelReservation hotelReservation = new HotelReservation();
-            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110,90,3));
-            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150,50,4));
-            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220,150,5));
+            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110, 90, 3));
+            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150, 50, 4));
+            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220, 150, 5));
 
-            string expected = "Hotel Name: Lakewood and RegularRate: Bridgewood and WeekendRate: Ridgewood";
+            string expected = "Hotel Name: Lakewood, RegularRate: 110, WeekendRate: 90 and rating: 3";
             string actual = hotelReservation.DisplayHotels();
 
             Assert.AreEqual(expected, actual);
         }
 
+        //UC4_Cheapest Hotel in Week and Weekend
+
         [TestMethod]
         public void GivenDetailsforCheapestHotelinaDateRange()
         {
-            string start = "2 Nov 2020";
-            DateTime startDate = DateTime.Parse(start);
-            string end = "4 Nov 2020";
-            DateTime endDate = DateTime.Parse(end);
-            HotelReservation hotelReservation = new HotelReservation();
-            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110, 90,3));
-            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150, 50,4));
-            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220, 150,5));
+            var startDate = Convert.ToDateTime("11Sep2020");
+            var endDate = Convert.ToDateTime("12Sep2020");
+
+            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110, 90, 3));
+            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150, 50, 4));
+            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220, 150, 5));
 
             ////Check cheapest available hotel
             HotelDetails cheapestHotel = hotelReservation.CheapestHotelandRateforDateRange(startDate, endDate);
@@ -41,6 +44,32 @@ namespace HotelReservationTest
 
             ////Assert
             Assert.AreEqual(expected, actual);
+        }
+
+        //UC6 to check for cheapandbestratedHotel
+
+        [TestMethod]
+        public void FindCheapestBestRatedHotels_WhenGivenValidDateRange_ReturnsCheapestHotelWithHighestRating()
+        {
+            var startDate = Convert.ToDateTime("11Sep2020");
+            var endDate = Convert.ToDateTime("13Sep2020");
+            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110, 90, 3));
+            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150, 50, 4));
+            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220, 150, 5));
+
+            ////Check cheapest available hotel 
+            HotelDetails cheapestbestratedHotel = hotelReservation.CheapestHotelandRateforDateRange(startDate, endDate);
+            string expected = "Bridgewood";
+            string actual = cheapestbestratedHotel.hotelName;
+            Assert.AreEqual(expected, actual);
+
+            int expectedrate = 4;
+            int actualrate = cheapestbestratedHotel.rating;
+            Assert.AreEqual(expectedrate, actualrate);
+
+            int expectedbill = 200;
+            int actualbill = hotelReservation.CalculateTotalBill(cheapestbestratedHotel, startDate, endDate);
+            Assert.AreEqual(expectedbill, actualbill);
         }
     }
 }
