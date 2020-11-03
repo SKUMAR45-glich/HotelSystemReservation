@@ -24,7 +24,7 @@ namespace HotelReservationSystem
             {
                 foreach (var hotel in this.hotelDetails)
                 {
-                    return $"Hotel Name: {hotel.hotelName}, RegularRate: {hotel.rate}, WeekendRate: {hotel.weekendrate} and rating: {hotel.rating}";
+                    return $"Hotel Name: {hotel.hotelName}, RegularRate: {hotel.rate}, WeekendRate: {hotel.weekendrate} rating: {hotel.rating} WeekRateforSpecialCustomer: {hotel.special_cust_rate} and WeekendRateforSpecialCustomer:{hotel.special_cust_weekendrate}";
                 }
             }
             catch (CustomExceptions)
@@ -33,6 +33,17 @@ namespace HotelReservationSystem
                 
             }
             return "Wrong Name";
+        }
+
+        //Find the Week and weekends Rates for Special Customer
+
+        public HotelDetails Weekandweekendrateforspecialcustomer(DateTime startDate, DateTime endDate)
+        {
+            foreach (HotelDetails hotels in hotelDetails)
+            {
+                return hotels;
+            }
+            return null;
         }
 
         //Find Hotels with cheapest rate

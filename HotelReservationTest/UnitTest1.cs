@@ -15,9 +15,9 @@ namespace HotelReservationTest
         [TestMethod]
         public void GivenDetailsforDisplayingDetailsofHotel()
         {
-            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110, 90, 3));
-            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150, 50, 4));
-            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220, 150, 5));
+            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110, 90, 3,80,80));
+            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150, 50, 4,110,50));
+            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220, 150,5, 100,40));
 
             string expected = "Hotel Name: Lakewood, RegularRate: 110, WeekendRate: 90 and rating: 3";
             string actual = hotelReservation.DisplayHotels();
@@ -33,9 +33,9 @@ namespace HotelReservationTest
             var startDate = Convert.ToDateTime("11Sep2020");
             var endDate = Convert.ToDateTime("12Sep2020");
 
-            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110, 90, 3));
-            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150, 50, 4));
-            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220, 150, 5));
+            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110, 90, 3, 80, 80));
+            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150, 50, 4, 110, 50));
+            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220, 150, 5, 100, 40));
 
             ////Check cheapest available hotel
             HotelDetails cheapestHotel = hotelReservation.CheapestHotelandRateforDateRange(startDate, endDate);
@@ -53,9 +53,9 @@ namespace HotelReservationTest
         {
             var startDate = Convert.ToDateTime("11Sep2020");
             var endDate = Convert.ToDateTime("13Sep2020");
-            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110, 90, 3));
-            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150, 50, 4));
-            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220, 150, 5));
+            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110, 90, 3, 80, 80));
+            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150, 50, 4, 110, 50));
+            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220, 150, 5, 100, 40));
 
             ////Check cheapest available hotel 
             HotelDetails cheapestbestratedHotel = hotelReservation.CheapestHotelandRateforDateRange(startDate, endDate);
@@ -79,19 +79,38 @@ namespace HotelReservationTest
         {
             var startDate = Convert.ToDateTime("11Sep2020");
             var endDate = Convert.ToDateTime("12Sep2020");
-            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110, 90, 3));
-            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150, 50, 4));
-            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220, 150, 5));
+            hotelReservation.AddHotel(new HotelDetails("Lakewood", 110, 90, 3, 80, 80));
+            hotelReservation.AddHotel(new HotelDetails("Bridgewood", 150, 50, 4, 110, 50));
+            hotelReservation.AddHotel(new HotelDetails("Ridgewood", 220, 150, 5, 100, 40));
 
             ////Check best rated available hotel 
             HotelDetails bestratedHotel = hotelReservation.CheapestHotelandRateforDateRange(startDate, endDate);
-            string expected = "Riddgewood";
+            string expected = "Ridgewood";
             string actual = bestratedHotel.hotelName;
             Assert.AreEqual(expected, actual);
 
             int expectedbill = 370;
             int actualbill = hotelReservation.CalculateTotalBill(bestratedHotel, startDate, endDate);
             Assert.AreEqual(expectedbill, actualbill);
+        }
+
+        //UC9 to add special rate for loyal customers
+
+        [TestMethod]
+        public void GivenDetailsforSpecialrateforloyalcustomers()
+        {
+            HotelDetails loayaltyrate = hotelReservation.Weekandweekendrateforspecialcustomer(DateTime startDate, DateTime endDate)
+            string expected = "Ridgewood";
+            string actual = loayaltyrate.hotelName;
+            Assert.AreEqual(expected, actual);
+
+            int expectedcost = 100;
+            int actualrate = loayaltyrate.special_cust_rate;
+            Assert.AreEqual(expectedcost, actualrate);
+
+            int expectedcostatweekend = 40;
+            int actualcost = loayaltyrate.special_cust_weekendrate;
+            Assert.AreEqual(expectedcostatweekend, actualcost);
         }
     }
 }
